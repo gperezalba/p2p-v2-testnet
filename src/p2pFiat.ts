@@ -12,13 +12,24 @@ import {
   OfferLock,
   NewCommission
 } from "../generated/PIBP2PFiat/PIBP2PFiat"
+import {
+    NewOffer as NewOfferOriginal,
+    NewDeal as NewDealOriginal,
+    NewPendingDeal as NewPendingDealOriginal,
+    UpdateOffer as UpdateOfferOriginal,
+    CancelOffer as CancelOfferOriginal,
+    VoteDeal as VoteDealOriginal,
+    AuditorNotification as AuditorNotificationOriginal,
+    UpdateReputation as Original,
+    NewCommission as NewCommissionOriginal
+  } from "../generated/PIBP2P/PIBP2P"
 import { Offer, Deal, Auditor, User, P2P, Lock } from "../generated/schema"
 import { pushOffer, pushPendingDeal, createUserIfNull } from "./user";
 import { createDeal, finishDeal, updateVote } from "./deal";
 import { createOffer, updateOffer, cancelOffer } from "./offer";
 
 export function handleNewOffer(event: NewOffer): void {
-  createOffer(event);
+  createOffer(event as NewOfferOriginal);
   pushOffer(event.params.owner.toHexString(), event.params.offerId.toHexString());
 }
 
@@ -27,7 +38,7 @@ export function handleNewDeal(event: NewDeal): void {
 }
 
 export function handleNewPendingDeal(event: NewPendingDeal): void {
-  createDeal(event);
+  createDeal(event as NewPendingDealOriginal);
   pushPendingDeal(event.params.buyer.toHexString(), event.params.dealId.toHexString());
   let offer = Offer.load(event.params.offerId.toHexString());
 
@@ -37,15 +48,15 @@ export function handleNewPendingDeal(event: NewPendingDeal): void {
 }
 
 export function handleUpdateOffer(event: UpdateOffer): void {
-  updateOffer(event);
+  updateOffer(event as UpdateOfferOriginal);
 }
 
 export function handleCancelOffer(event: CancelOffer): void {
-  cancelOffer(event);
+  cancelOffer(event as CancelOfferOriginal);
 }
 
 export function handleVoteDeal(event: VoteDeal): void {
-  updateVote(event);
+  updateVote(event as VoteDealOriginal);
 }
 
 export function handleAuditorNotification(event: AuditorNotification): void {
