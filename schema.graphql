@@ -25,6 +25,7 @@ type Offer @entity {
   price: BigInt!
   isPartial: Boolean!
   isBuyFiat: Boolean!
+  isSellFiat: Boolean!
   minDealAmount: BigInt!
   maxDealAmount: BigInt!
   minReputation: BigInt!

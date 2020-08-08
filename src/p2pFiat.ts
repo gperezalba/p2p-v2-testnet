@@ -31,6 +31,9 @@ import { createOffer, updateOffer, cancelOffer } from "./offer";
 export function handleNewOffer(event: NewOffer): void {
   createOffer(event as NewOfferOriginal);
   pushOffer(event.params.owner.toHexString(), event.params.offerId.toHexString());
+  let offer = Offer.load(event.params.offerId.toHexString());
+  offer.isSellFiat = true;
+  offer.save();
 }
 
 export function handleNewDeal(event: NewDeal): void {
