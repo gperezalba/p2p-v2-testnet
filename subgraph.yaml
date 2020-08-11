@@ -121,7 +121,7 @@ dataSources:
     name: PIBP2PFiat
     network: mainnet
     source:
-      address: "0xE008C4a3e4ab8A5845c039Cf67F874e29CC851Ff"
+      address: "0xdB537942009e659949f5818652e8ACB760dC13fA"
       abi: PIBP2PFiat
     mapping:
       kind: ethereum/events
