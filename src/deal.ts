@@ -2,7 +2,7 @@ import { Deal, Offer, DealCommodity, DealPackable, OfferPackable } from "../gene
 import { NewPendingDeal, VoteDeal } from "../generated/PIBP2P/PIBP2P";
 import { BigDecimal, Address, BigInt } from "@graphprotocol/graph-ts";
 import { NewDeal } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
-import { NewDeal as NewDealPackable } from "../generated/PIBP2PPackable/PIBP2PPackable";
+import { NewDeal as NewDealPackable, NewPendingDeal as NewPendingDealPackable, VoteDeal as VoteDealPackable } from "../generated/PIBP2PPackable/PIBP2PPackable";
 import { pushDealToOffer, pushDealToOfferCommodity, pushDealToOfferPackable } from "./offer";
 
 export function createDeal(event: NewPendingDeal): void {
@@ -45,7 +45,7 @@ export function createCommodityDeal(event: NewDeal): void {
     }
 }
 
-export function createPackableDeal(event: NewDealPackable): void {
+export function createPackableDeal(event: NewPendingDealPackable): void {
     let deal = DealPackable.load(event.params.offerId.toHexString().concat("-").concat(event.transaction.hash.toHexString()).concat(event.transactionLogIndex.toHexString()));
 
     if (deal == null) {
@@ -53,8 +53,12 @@ export function createPackableDeal(event: NewDealPackable): void {
 
         deal.offer = event.params.offerId.toHexString();
         deal.buyer = event.params.buyer.toHexString();
-        deal.sellAmount = event.params._sellAmount;
-        deal.buyAmount = event.params._buyAmount;
+        deal.sellAmount = event.params.sellAmount;
+        deal.buyAmount = event.params.buyAmount;
+        deal.sellerVote = BigInt.fromI32(0);
+        deal.buyerVote = BigInt.fromI32(0);
+        deal.auditorVote = BigInt.fromI32(0);
+        deal.isPending = true;
         deal.timestamp = event.block.timestamp;
 
         deal.save();
@@ -75,8 +79,37 @@ export function finishDeal(dealId: string, success: boolean, executor: Address):
     }
 }
 
+export function finishDealPackable(dealId: string, success: boolean, executor: Address): void {
+    let deal = DealPackable.load(dealId);
+
+    if (deal != null) {
+        deal.isPending = false;
+        deal.isSuccess = success;
+        deal.executor = executor;
+
+        deal.save();
+    }
+}
+
 export function updateVote(event: VoteDeal): void {
     let deal = Deal.load(event.params.dealId.toHexString());
+
+    if (deal != null) {
+        
+        if (event.params.sender == Address.fromString(deal.buyer)) {
+            deal.buyerVote = BigInt.fromI32(event.params.vote);
+            deal.sellerVote = BigInt.fromI32(event.params.counterpartVote);
+        } else {
+            deal.sellerVote = BigInt.fromI32(event.params.vote);
+            deal.buyerVote = BigInt.fromI32(event.params.counterpartVote);
+        }
+
+        deal.save();
+    }
+}
+
+export function updateVotePackable(event: VoteDealPackable): void {
+    let deal = DealPackable.load(event.params.dealId.toHexString());
 
     if (deal != null) {
         

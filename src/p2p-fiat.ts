@@ -93,7 +93,7 @@ export function handleUpdateReputation(event: UpdateReputation): void {
 }
 
 export function handleOfferLock(event: OfferLock): void {
-  createUserIfNull(event.params.user .toHexString());
+  createUserIfNull(event.params.user.toHexString());
   let user = User.load(event.params.user.toHexString());
   let lockId = event.params.user.toHexString().concat("-").concat(event.params.tokenAddress.toHexString());
   let offerLock = Lock.load(lockId);

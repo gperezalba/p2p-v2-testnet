@@ -87,7 +87,7 @@ dataSources:
     name: PIBP2PPackable
     network: mainnet
     source:
-      address: "0x6Bb255036BA7e658e9795569c8e75ec34D71f1f5"
+      address: "0xc0C0484154a2cCD888704B085cb018127996985a"
       abi: PIBP2PPackable
     mapping:
       kind: ethereum/events
@@ -106,14 +106,64 @@ dataSources:
         - name: NameService
           file: ./abis/NameService.json
       eventHandlers:
-        - event: NewOffer(indexed address,indexed address,address,bytes32,uint256,uint256,bool,uint256,uint256,string,indexed bytes32,uint256[])
+        - event: NewOffer(indexed address,indexed address,bytes32,address,uint256,uint256,bool,bool,uint256[3],address,string,indexed bytes32,uint256[])
           handler: handleNewOffer
-        - event: NewDeal(indexed bytes32,indexed address,uint256,uint256)
+        - event: NewPendingDeal(indexed bytes32,indexed bytes32,address,uint256,uint256)
+          handler: handleNewPendingDeal
+        - event: NewDeal(indexed bytes32,bool,indexed address)
           handler: handleNewDeal
-        - event: UpdateOffer(indexed bytes32,bytes32,uint256,uint256)
+        - event: UpdateOffer(indexed bytes32,uint256,uint256)
           handler: handleUpdateOffer
         - event: CancelOffer(indexed bytes32)
           handler: handleCancelOffer
+        - event: VoteDeal(indexed bytes32,address,uint8,uint8)
+          handler: handleVoteDeal
+        - event: AuditorNotification(indexed bytes32)
+          handler: handleAuditorNotification
+        - event: DealLock(indexed address,bool)
+          handler: handleDealLock
+        - event: NewCommission(uint256)
+          handler: handleNewCommission
+      file: ./src/p2p-pnft.ts
+  - kind: ethereum/contract
+    name: PIBP2PPackableRequest
+    network: mainnet
+    source:
+      address: "0xCbF2183eD988372D4ABbE92B5CF99238b6E39e34"
+      abi: PIBP2PPackable
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - NewOffer
+        - NewDeal
+        - UpdateOffer
+        - CancelOffer
+      abis:
+        - name: PIBP2PPackable
+          file: ./abis/PIBP2PPackable.json
+        - name: PNFTInterface
+          file: ./abis/PNFTInterface.json
+        - name: NameService
+          file: ./abis/NameService.json
+      eventHandlers:
+        - event: NewOffer(indexed address,indexed address,bytes32,address,uint256,uint256,bool,bool,uint256[3],address,string,indexed bytes32,uint256[])
+          handler: handleNewOffer
+        - event: NewPendingDeal(indexed bytes32,indexed bytes32,address,uint256,uint256)
+          handler: handleNewPendingDeal
+        - event: NewDeal(indexed bytes32,bool,indexed address)
+          handler: handleNewDeal
+        - event: UpdateOffer(indexed bytes32,uint256,uint256)
+          handler: handleUpdateOffer
+        - event: CancelOffer(indexed bytes32)
+          handler: handleCancelOffer
+        - event: VoteDeal(indexed bytes32,address,uint8,uint8)
+          handler: handleVoteDeal
+        - event: AuditorNotification(indexed bytes32)
+          handler: handleAuditorNotification
+        - event: OfferLock(indexed address,address,bool)
+          handler: handleOfferLock
         - event: NewCommission(uint256)
           handler: handleNewCommission
       file: ./src/p2p-pnft.ts
@@ -161,7 +211,7 @@ dataSources:
           handler: handleOfferLock
         - event: NewCommission(uint256)
           handler: handleNewCommission
-      file: ./src/p2pFiat.ts
+      file: ./src/p2p-fiat.ts
   - kind: ethereum/contract
     name: Controller
     network: mainnet
