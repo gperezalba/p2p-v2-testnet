@@ -19,7 +19,7 @@ export function createPackable(event: NewPNFToken): void {
 
 function createPackableId(event: NewJson): void {
     let packable = Packable.load(event.address.toHexString());
-    let packableId = event.address.toHexString().concat("-").concat(event.params.tokenId.toHexString());
+    let packableId = event.params.tokenId.toHexString();
     let packableIdEntity = PackableId.load(packableId);
 
     if (packableIdEntity == null) {
