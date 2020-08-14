@@ -53,7 +53,7 @@ dataSources:
     name: PIBP2PCommodity
     network: mainnet
     source:
-      address: "0x4986791f867983A8a4e83508849C3D2dEb56652C"
+      address: "0xcdf3f83207d2ABD9ab4BD8990eB4ddbAd4bA24C7"
       abi: PIBP2PCommodity
     mapping:
       kind: ethereum/events
@@ -72,16 +72,24 @@ dataSources:
         - name: NameService
           file: ./abis/NameService.json
       eventHandlers:
-        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,string,indexed bytes32,uint256[])
+        - event: NewOffer(indexed address,indexed address,address,uint256,uint256,bool,uint256,address,string,indexed bytes32,uint256[])
           handler: handleNewOffer
-        - event: NewDeal(indexed bytes32,indexed address,uint256)
+        - event: NewDeal(indexed bytes32,bool,indexed address)
           handler: handleNewDeal
+        - event: NewPendingDeal(indexed bytes32,address,uint256)
+          handler: handleNewPendingDeal
         - event: UpdateOffer(indexed bytes32,uint256,uint256)
           handler: handleUpdateOffer
         - event: CancelOffer(indexed bytes32)
           handler: handleCancelOffer
+        - event: VoteDeal(indexed bytes32,address,uint8,uint8)
+          handler: handleVoteDeal
+        - event: AuditorNotification(indexed bytes32)
+          handler: handleAuditorNotification
         - event: NewCommission(uint256)
           handler: handleNewCommission
+        - event: DealLock(indexed address,bool)
+          handler: handleDealLock
       file: ./src/p2p-nft.ts
   - kind: ethereum/contract
     name: PIBP2PPackable

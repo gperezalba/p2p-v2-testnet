@@ -50,6 +50,8 @@ type OfferCommodity @entity {
   sellId: Commodity! #tokenAddress - tokenId
   buyAmount: BigInt!
   isBuyFiat: Boolean
+  minReputation: BigInt!
+  auditor: Bytes
   price: BigInt!
   description: String
   isOpen: Boolean!
@@ -103,6 +105,12 @@ type DealCommodity @entity {
   id: ID!
   offer: OfferCommodity!
   buyer: User!
+  sellerVote: BigInt
+  buyerVote: BigInt
+  auditorVote: BigInt
+  isPending: Boolean!
+  isSuccess: Boolean
+  executor: Bytes
   timestamp: BigInt
 }
 

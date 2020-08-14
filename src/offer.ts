@@ -81,7 +81,10 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     offer.buyAmount = event.params.buyAmount;
     offer.description = event.params.description;
     offer.isOpen = true;
+    offer.isBuyFiat = event.params.isBuyFiat;
     offer.timestamp = event.block.timestamp;
+    offer.minReputation = event.params.minReputation;
+    offer.auditor = event.params.auditor;
     offer.price = event.params.buyAmount;
     let token = Token.load(event.params.sellToken.toHexString());
     offer.deals = [];
