@@ -49,6 +49,7 @@ type OfferCommodity @entity {
   buyToken: Token!
   sellId: Commodity! #tokenAddress - tokenId
   buyAmount: BigInt!
+  isBuyFiat: Boolean
   price: BigInt!
   description: String
   isOpen: Boolean!
