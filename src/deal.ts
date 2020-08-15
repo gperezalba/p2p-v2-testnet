@@ -46,10 +46,10 @@ export function createCommodityDeal(event: NewPendingDealCommodity): void {
 }
 
 export function createPackableDeal(event: NewPendingDealPackable): void {
-    let deal = DealPackable.load(event.params.offerId.toHexString().concat("-").concat(event.transaction.hash.toHexString()).concat(event.transactionLogIndex.toHexString()));
+    let deal = DealPackable.load(event.params.offerId.toHexString());
 
     if (deal == null) {
-        deal = new DealPackable(event.params.offerId.toHexString().concat("-").concat(event.transaction.hash.toHexString()).concat(event.transactionLogIndex.toHexString()));
+        deal = new DealPackable(event.params.offerId.toHexString());
 
         deal.offer = event.params.offerId.toHexString();
         deal.buyer = event.params.buyer.toHexString();
