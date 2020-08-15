@@ -89,11 +89,13 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
     let token = Token.load(event.params.sellToken.toHexString());
     offer.deals = [];
 
-    let metadata: Array<BigInt> = event.params.metadata
+    let metadata: Array<BigInt> = event.params.metadata;
     
     let isCountry = true;
+    let isPayMethod = true;
     let countries: Array<BigInt> = [];
     let methods: Array<BigInt> = [];
+    let accounts: Array<BigInt> = [];
 
     for (let i = 0; i < metadata.length; i++) {
 
@@ -102,13 +104,19 @@ export function createOfferCommodity(event: NewOfferCommodity): void {
             if (metadata[i] == BigInt.fromI32(0)) {
                 isCountry = false;
             }
-        } else {
+        } else if (isPayMethod) {
             methods.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isPayMethod = false;
+            }
+        } else {
+            accounts.push(metadata[i]);
         }
     }
 
     offer.country = countries;
     offer.payMethod = methods;
+    offer.payAccount = accounts;
 
     offer.save();
 }
@@ -139,6 +147,35 @@ export function createOfferPackable(event: NewOfferPackable): void {
     offer.isOpen = true;
     offer.timestamp = event.block.timestamp;
     offer.deals = [];
+
+    let metadata: Array<BigInt> = event.params.metadata;
+    
+    let isCountry = true;
+    let isPayMethod = true;
+    let countries: Array<BigInt> = [];
+    let methods: Array<BigInt> = [];
+    let accounts: Array<BigInt> = [];
+
+    for (let i = 0; i < metadata.length; i++) {
+
+        if (isCountry) {
+            countries.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isCountry = false;
+            }
+        } else if (isPayMethod) {
+            methods.push(metadata[i]);
+            if (metadata[i] == BigInt.fromI32(0)) {
+                isPayMethod = false;
+            }
+        } else {
+            accounts.push(metadata[i]);
+        }
+    }
+
+    offer.country = countries;
+    offer.payMethod = methods;
+    offer.payAccount = accounts;
 
     offer.save();
 }

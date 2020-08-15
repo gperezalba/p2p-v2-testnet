@@ -58,6 +58,7 @@ type OfferCommodity @entity {
   country: [BigInt!]
   timestamp: BigInt
   payMethod: [BigInt!]
+  payAccount: [BigInt!]
   deals: [DealCommodity!]
 }
 
@@ -82,6 +83,9 @@ type OfferPackable @entity {
   description: String
   isOpen: Boolean!
   timestamp: BigInt!
+  country: [BigInt!]
+  payMethod: [BigInt!]
+  payAccount: [BigInt!]
   deals: [DealPackable!]
 }
 
