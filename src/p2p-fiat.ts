@@ -20,7 +20,7 @@ import {
     CancelOffer as CancelOfferOriginal,
     VoteDeal as VoteDealOriginal,
     AuditorNotification as AuditorNotificationOriginal,
-    UpdateReputation as Original,
+    UpdateReputation as UpdateReputationOriginal,
     NewCommission as NewCommissionOriginal
   } from "../generated/PIBP2P/PIBP2P"
 import { Offer, Deal, Auditor, User, P2P, Lock } from "../generated/schema"
@@ -33,6 +33,7 @@ export function handleNewOffer(event: NewOffer): void {
   pushOffer(event.params.owner.toHexString(), event.params.offerId.toHexString());
   let offer = Offer.load(event.params.offerId.toHexString());
   offer.isSellFiat = true;
+  offer.isBuyFiat = false;
   offer.save();
 }
 
