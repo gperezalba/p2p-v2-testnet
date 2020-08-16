@@ -1,4 +1,4 @@
-import { Deal, Offer, DealCommodity, DealPackable, OfferPackable } from "../generated/schema";
+import { Deal, Offer, DealCommodity, DealPackable, OfferPackable, OfferCommodity } from "../generated/schema";
 import { NewPendingDeal, VoteDeal } from "../generated/PIBP2P/PIBP2P";
 import { BigDecimal, Address, BigInt } from "@graphprotocol/graph-ts";
 import { NewPendingDeal as NewPendingDealCommodity, VoteDeal as VoteDealCommodity } from "../generated/PIBP2PCommodity/PIBP2PCommodity";
@@ -31,11 +31,13 @@ export function createDeal(event: NewPendingDeal): void {
 
 export function createCommodityDeal(event: NewPendingDealCommodity): void {
     let deal = DealCommodity.load(event.params.dealId.toHexString());
+    let offer = OfferCommodity.load(event.params.dealId.toHexString());
 
     if (deal == null) {
         deal = new DealCommodity(event.params.dealId.toHexString());
 
         deal.offer = event.params.dealId.toHexString();
+        deal.seller = offer.owner;
         deal.buyer = event.params.buyer.toHexString();
         deal.timestamp = event.block.timestamp;
 
@@ -47,11 +49,13 @@ export function createCommodityDeal(event: NewPendingDealCommodity): void {
 
 export function createPackableDeal(event: NewPendingDealPackable): void {
     let deal = DealPackable.load(event.params.dealId.toHexString());
+    let offer = OfferPackable.load(event.params.offerId.toHexString());
 
     if (deal == null) {
         deal = new DealPackable(event.params.dealId.toHexString());
 
         deal.offer = event.params.offerId.toHexString();
+        deal.seller = offer.owner;
         deal.buyer = event.params.buyer.toHexString();
         deal.sellAmount = event.params.sellAmount;
         deal.buyAmount = event.params.buyAmount;

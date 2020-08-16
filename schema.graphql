@@ -109,6 +109,7 @@ type DealCommodity @entity {
   id: ID!
   offer: OfferCommodity!
   buyer: User!
+  seller: User!
   sellerVote: BigInt
   buyerVote: BigInt
   auditorVote: BigInt
@@ -122,6 +123,7 @@ type DealPackable @entity {
   id: ID!
   offer: OfferPackable!
   buyer: User!
+  seller: User!
   sellAmount: BigInt!
   buyAmount: BigInt!
   sellerVote: BigInt
