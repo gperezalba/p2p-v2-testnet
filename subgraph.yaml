@@ -157,7 +157,7 @@ dataSources:
           file: ./abis/NameService.json
       eventHandlers:
         - event: NewOffer(indexed address,indexed address,bytes32,address,uint256,uint256,bool,bool,uint256[3],address,string,indexed bytes32,uint256[])
-          handler: handleNewOffer
+          handler: handleNewOfferRequest
         - event: NewPendingDeal(indexed bytes32,indexed bytes32,address,uint256,uint256)
           handler: handleNewPendingDeal
         - event: NewDeal(indexed bytes32,bool,indexed address)

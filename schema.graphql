@@ -75,7 +75,8 @@ type OfferPackable @entity {
   price: BigInt!
   price_per_unit: BigInt!
   isPartial: Boolean!
-  isFiat: Boolean!
+  isBuyFiat: Boolean!
+  isSellFiat: Boolean!
   minDealAmount: BigInt!
   maxDealAmount: BigInt!
   minReputation: BigInt!

@@ -138,7 +138,8 @@ export function createOfferPackable(event: NewOfferPackable): void {
     }
     offer.initialSellAmount = event.params.sellAmount;
     offer.isPartial = event.params.isPartial;
-    offer.isFiat = event.params.isBuyFiat;
+    offer.isBuyFiat = false;
+    offer.isSellFiat = false;
     let limits = event.params.limits;
     offer.minDealAmount = limits[0];
     offer.maxDealAmount = limits[1];

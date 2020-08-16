@@ -7,6 +7,21 @@ import { createPackableDeal, finishDealPackable, updateVotePackable } from "./de
 
 export function handleNewOffer(event: NewOffer): void {
     createOfferPackable(event);
+    let offer = OfferPackable.load(event.params.offerId.toHexString());
+    if (offer != null) {
+        offer.isBuyFiat = event.params.isBuyFiat;
+        offer.save();
+    }
+    pushPackableOffer(event.params.owner.toHexString(), event.params.offerId.toHexString());
+}
+
+export function handleNewOfferRequest(event: NewOffer): void {
+    createOfferPackable(event);
+    let offer = OfferPackable.load(event.params.offerId.toHexString());
+    if (offer != null) {
+        offer.isSellFiat = event.params.isBuyFiat;
+        offer.save();
+    }
     pushPackableOffer(event.params.owner.toHexString(), event.params.offerId.toHexString());
 }
 
