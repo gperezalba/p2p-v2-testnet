@@ -72,9 +72,9 @@ export function handleAuditorNotification(event: AuditorNotification): void {
 
             if (auditor == null) {
                 auditor = new Auditor(offer.auditor.toHexString());
-                let requests = auditor.requests;
+                let requests = auditor.commodityRequests;
                 requests.push(deal.id);
-                auditor.requests = requests;
+                auditor.commodityRequests = requests;
 
                 auditor.save();
             }

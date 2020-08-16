@@ -181,6 +181,8 @@ type Commodity @entity {
 type Auditor @entity {
   id: ID!
   requests: [Deal!]
+  commodityRequests: [DealCommodity!]
+  packableRequests: [DealPackable!]
 }
 
 type Reputation @entity {
