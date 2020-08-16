@@ -14,10 +14,10 @@ export function handleNewPendingDeal(event: NewPendingDeal): void {
     createPackableDeal(event);
     let offer = OfferPackable.load(event.params.offerId.toHexString());
     if (offer != null) {
-        pushPackableDeal(offer.owner, event.params.offerId.toHexString());
+        pushPackableDeal(offer.owner, event.params.dealId.toHexString());
     }
 
-    pushPackableDeal(event.params.buyer.toHexString(), event.params.offerId.toHexString());
+    pushPackableDeal(event.params.buyer.toHexString(), event.params.dealId.toHexString());
 
 }
 
