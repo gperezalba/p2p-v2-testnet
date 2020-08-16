@@ -137,7 +137,7 @@ dataSources:
     name: PIBP2PPackableRequest
     network: mainnet
     source:
-      address: "0xf4B5e3319B5c854FB075e8CEed393C715A388b14"
+      address: "0xBAAa87d7D2be1567eCd7ADBD132A14B4fd1C7af7"
       abi: PIBP2PPackable
     mapping:
       kind: ethereum/events
