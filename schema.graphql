@@ -148,6 +148,10 @@ type User @entity {
   offchainReputation: BigInt
   isDealLocked: Boolean
   isOfferLocked: [Lock!]
+  isCommodityDealLocked: Boolean
+  isCommodityOfferLocked: [Lock!]
+  isPackableDealLocked: Boolean
+  isPackableOfferLocked: [Lock!]
   reputations: [Reputation!]
 }
 

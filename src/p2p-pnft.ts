@@ -89,7 +89,7 @@ export function handleDealLock(event: DealLock): void {
     createUserIfNull(event.params.user.toHexString());
     let user = User.load(event.params.user.toHexString());
 
-    user.isDealLocked = event.params.isLocked;
+    user.isPackableDealLocked = event.params.isLocked;
 
     user.save();
 }
@@ -97,7 +97,7 @@ export function handleDealLock(event: DealLock): void {
 export function handleOfferLock(event: OfferLock): void {
     createUserIfNull(event.params.user.toHexString());
     let user = User.load(event.params.user.toHexString());
-    let lockId = event.params.user.toHexString().concat("-").concat(event.params.tokenAddress.toHexString());
+    let lockId = event.params.user.toHexString().concat("-PACKABLE-").concat(event.params.tokenAddress.toHexString());
     let offerLock = Lock.load(lockId);
 
     if (offerLock == null) {
@@ -109,11 +109,11 @@ export function handleOfferLock(event: OfferLock): void {
 
     offerLock.save();
 
-    let locks = user.isOfferLocked;
+    let locks = user.isPackableOfferLocked;
 
     if (!locks.includes(lockId)) {
         locks.push(lockId);
-        user.isOfferLocked = locks;
+        user.isPackableOfferLocked = locks;
         user.save();
     }
 }

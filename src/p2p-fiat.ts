@@ -13,16 +13,16 @@ import {
   NewCommission
 } from "../generated/PIBP2PFiat/PIBP2PFiat"
 import {
-    NewOffer as NewOfferOriginal,
-    NewDeal as NewDealOriginal,
-    NewPendingDeal as NewPendingDealOriginal,
-    UpdateOffer as UpdateOfferOriginal,
-    CancelOffer as CancelOfferOriginal,
-    VoteDeal as VoteDealOriginal,
-    AuditorNotification as AuditorNotificationOriginal,
-    UpdateReputation as UpdateReputationOriginal,
-    NewCommission as NewCommissionOriginal
-  } from "../generated/PIBP2P/PIBP2P"
+  NewOffer as NewOfferOriginal,
+  NewDeal as NewDealOriginal,
+  NewPendingDeal as NewPendingDealOriginal,
+  UpdateOffer as UpdateOfferOriginal,
+  CancelOffer as CancelOfferOriginal,
+  VoteDeal as VoteDealOriginal,
+  AuditorNotification as AuditorNotificationOriginal,
+  UpdateReputation as UpdateReputationOriginal,
+  NewCommission as NewCommissionOriginal
+} from "../generated/PIBP2P/PIBP2P"
 import { Offer, Deal, Auditor, User, P2P, Lock } from "../generated/schema"
 import { pushOffer, pushPendingDeal, createUserIfNull } from "./user";
 import { createDeal, finishDeal, updateVote } from "./deal";
@@ -85,7 +85,7 @@ export function handleAuditorNotification(event: AuditorNotification): void {
 }
 
 export function handleUpdateReputation(event: UpdateReputation): void {
-  createUserIfNull(event.params.user .toHexString());
+  createUserIfNull(event.params.user.toHexString());
   let user = User.load(event.params.user.toHexString());
 
   user.offchainReputation = event.params.reputation;
@@ -96,7 +96,7 @@ export function handleUpdateReputation(event: UpdateReputation): void {
 export function handleOfferLock(event: OfferLock): void {
   createUserIfNull(event.params.user.toHexString());
   let user = User.load(event.params.user.toHexString());
-  let lockId = event.params.user.toHexString().concat("-").concat(event.params.tokenAddress.toHexString());
+  let lockId = event.params.user.toHexString().concat("-CURRENCY-").concat(event.params.tokenAddress.toHexString());
   let offerLock = Lock.load(lockId);
 
   if (offerLock == null) {

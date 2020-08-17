@@ -56,7 +56,7 @@ export function handleDealLock(event: DealLock): void {
     createUserIfNull(event.params.user.toHexString());
     let user = User.load(event.params.user.toHexString());
 
-    user.isDealLocked = event.params.isLocked;
+    user.isCommodityDealLocked = event.params.isLocked;
 
     user.save();
 }
