@@ -53,7 +53,7 @@ dataSources:
     name: PIBP2PCommodity
     network: mainnet
     source:
-      address: "0xcdf3f83207d2ABD9ab4BD8990eB4ddbAd4bA24C7"
+      address: "0x23255631b6ab5656B8fB1773f6EdDa93Aeebb796"
       abi: PIBP2PCommodity
     mapping:
       kind: ethereum/events
@@ -95,7 +95,7 @@ dataSources:
     name: PIBP2PPackable
     network: mainnet
     source:
-      address: "0x659120e16Bf3eEF90a7bCA7719242976dc5E9447"
+      address: "0xAE68057bb0084257Fe168e09D9Eca60B11A75491"
       abi: PIBP2PPackable
     mapping:
       kind: ethereum/events
@@ -137,7 +137,7 @@ dataSources:
     name: PIBP2PPackableRequest
     network: mainnet
     source:
-      address: "0x874a5926040D09Ac9d597afd88443C68A16A41f3"
+      address: "0x9653c412b72221Ff3469Dcc604E7Fd0A4bb52EFc"
       abi: PIBP2PPackable
     mapping:
       kind: ethereum/events
@@ -179,7 +179,7 @@ dataSources:
     name: PIBP2PFiat
     network: mainnet
     source:
-      address: "0xCf6588E0c4F8266EdFE98bEd1080E12f4AEd398D"
+      address: "0x869D74fc625F6FaD0CDCA298d5CE732Ce57245D9"
       abi: PIBP2PFiat
     mapping:
       kind: ethereum/events
