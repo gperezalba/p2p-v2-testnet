@@ -109,6 +109,7 @@ type Deal @entity {
 type DealCommodity @entity {
   id: ID!
   offer: OfferCommodity!
+  buyAmount: BigInt!
   buyer: User!
   seller: User!
   sellerVote: BigInt

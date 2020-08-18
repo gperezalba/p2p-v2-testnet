@@ -37,6 +37,7 @@ export function createCommodityDeal(event: NewPendingDealCommodity): void {
         deal = new DealCommodity(event.params.dealId.toHexString());
 
         deal.offer = event.params.dealId.toHexString();
+        deal.buyAmount = event.params.buyAmount;
         deal.seller = offer.owner;
         deal.buyer = event.params.buyer.toHexString();
         deal.sellerVote = BigInt.fromI32(0);
